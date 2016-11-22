@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="toDoApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="vendor/angular-ui-router.min.js"></script>
+    <script src="js/models/todo-model.js"></script>
+
+</head>
+<body ng-controller="TodoListCtrl">
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <strong>
+                ToDo List
+            </strong>
+        </div>
+        <div class="input-wrapper">
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <strong>
+                                New deal
+                            </strong>
+                        </div>
+                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Enter deal"
+                               ng-model="currentDeal.description">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="submitDeal(currentDeal)">Add new deal</button>
+            </form>
+        </div>
+        <table class="table table-striped" ng-show="!!currentList.length">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Deal Description</th>
+                <th>Done</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="deal in currentList" ng-class="{success:deal.done}" ng-dblclick="setTaskForEdit(deal.id)">
+                <td>
+                    <strong>
+                        {{$index+1}}
+                    </strong>
+                </td>
+                <td>{{deal.description}}</td>
+                <td>
+                    <input type="checkbox" ng-model="deal.done">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="input-wrapper">
+            <form class="form-inline">
+                <button type="submit" class="btn btn-warning text-right btn-xs" ng-show="!!currentList.length" ng-click="cleanUp()">Clean up the list</button>
+            </form>
+        </div>
+    </div>
+
+    <div ui-view></div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
